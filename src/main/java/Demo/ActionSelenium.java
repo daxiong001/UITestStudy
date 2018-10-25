@@ -38,15 +38,17 @@ public class ActionSelenium {
     public void radioBox(){
         driver.get("https://www.imooc.com/user/setprofile");
         driver.findElement(By.className("pull-right")).click();
-        List<WebElement> elements = driver.findElements(By.xpath("//*[@id=\"profile\"]/div[4]/div/label//input"));//定位到label下的input元素
+        List<WebElement> elements = driver.findElements(By.xpath("//*[@id=\"profile\"]/div[4]/div/label//input"));//定位到label下的当前选中的input元素
         try {
             Thread.sleep(4000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        //循环到下一个元素
         for (WebElement radio:elements
              ) {
             boolean flag = radio.isSelected();
+            //判断是否被选中
             if (flag == false){
                 radio.click();
                 break;
