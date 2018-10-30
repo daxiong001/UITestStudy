@@ -18,8 +18,8 @@ public class ActionSelenium {
         //options.addArguments("headless");   //设置浏览器静默模式，后台运行浏览器
         //driver = new ChromeDriver(options);
         driver = new ChromeDriver();
-        //driver.get("http://www.imooc.com/user/newlogin/from_url");
-        driver.navigate().to("http://www.imooc.com");
+        driver.get("http://www.imooc.com/user/newlogin/from_url");
+        //driver.navigate().to("http://www.imooc.com");
         driver.manage().window().maximize();
     }
 
@@ -128,17 +128,27 @@ public class ActionSelenium {
         actions.moveToElement(elementList.get(1)).perform();//鼠标移动到具体的位置
         driver.findElement(By.linkText("HTML/CSS")).click();
     }
+
+    /*iframe切换*/
+    public  void iframe(){
+        driver.get("https://www.imooc.com/wiki/create");
+        WebElement iframeelement = driver.findElement(By.id("ueditor_0"));//定位iframe
+        driver.switchTo().frame(iframeelement);//窗口切换到iframe
+        driver.findElement(By.tagName("body")).sendKeys("this is test");
+    }
+
     public static void main(String[] args) {
         ActionSelenium as = new ActionSelenium();
         as.InitDriver();
         //as.checkBox();
-        //as.inputBox();
+        as.inputBox();
         //as.radioBox();
         //as.button();
         //as.upFile();
         //as.selectBox();
         //as.selectBox();
-        as.mouseAction();
+        //as.mouseAction();
+        as.iframe();
     }
 }
 
