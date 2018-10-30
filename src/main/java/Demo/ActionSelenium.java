@@ -2,6 +2,7 @@ package Demo;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
@@ -10,7 +11,8 @@ public class ActionSelenium {
     /*初始化浏览器驱动*/
     public WebDriver driver;
     public void InitDriver(){
-        System.setProperty("webdriver.chrome.driver","D:\\WorkSpace\\UITestStudy\\src\\main\\resources\\chromedriver.exe");
+        //System.setProperty("webdriver.chrome.driver","D:\\WorkSpace\\UITestStudy\\src\\main\\resources\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver","E:\\StudyWorkspace\\src\\main\\resources\\chromedriver.exe");
         //ChromeOptions options = new ChromeOptions();
         //options.addArguments("headless");   //设置浏览器静默模式，后台运行浏览器
         //driver = new ChromeDriver(options);
@@ -92,6 +94,18 @@ public class ActionSelenium {
         driver.findElement(By.linkText("确定")).click();
     }
 
+    /*下拉框*/
+    public void selectBox(){
+        driver.get("https://www.imooc.com/user/setprofile");
+        driver.findElement(By.linkText("编辑")).click();
+        WebElement ele = driver.findElement(By.id("profile"));//层级定位，先定位父节点
+        WebElement element = ele.findElement(By.id("job"));//再定位子节点
+        Select select = new Select(element);//创建一个下拉框对象
+        //select.selectByValue("5");//通过具体的value值选择
+        //select.selectByIndex(2);//通过角标选择
+        select.selectByVisibleText("移动开发工程师");//通过显示出来的文本值选择
+    }
+
     public static void main(String[] args) {
         ActionSelenium as = new ActionSelenium();
         as.InitDriver();
@@ -99,7 +113,9 @@ public class ActionSelenium {
         as.inputBox();
         //as.radioBox();
         //as.button();
-        as.upFile();
+        //as.upFile();
+       // as.selectBox();
+        as.selectBox();
     }
 }
 
