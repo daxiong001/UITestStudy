@@ -102,8 +102,16 @@ public class ActionSelenium {
         WebElement element = ele.findElement(By.id("job"));//再定位子节点
         Select select = new Select(element);//创建一个下拉框对象
         //select.selectByValue("5");//通过具体的value值选择
-        //select.selectByIndex(2);//通过角标选择
-        select.selectByVisibleText("移动开发工程师");//通过显示出来的文本值选择
+        select.selectByIndex(2);//通过角标选择
+        //select.selectByVisibleText("移动开发工程师");//通过显示出来的文本值选择
+        System.out.println(select.isMultiple());//判断是否是多选
+        //select.deselectByIndex(2);//通过角标去掉选中值
+        List<WebElement> options = select.getAllSelectedOptions();//用于下拉多选，获得所有选中的值
+        for (WebElement e:options
+             ) {
+            System.out.println(e.getText());
+        }
+        System.out.println(select.getFirstSelectedOption().getText());//用于下拉选择，获取第一个选择的值
     }
 
     public static void main(String[] args) {
