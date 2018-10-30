@@ -2,6 +2,7 @@ package Demo;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
@@ -17,7 +18,8 @@ public class ActionSelenium {
         //options.addArguments("headless");   //设置浏览器静默模式，后台运行浏览器
         //driver = new ChromeDriver(options);
         driver = new ChromeDriver();
-        driver.get("http://www.imooc.com/user/newlogin/from_url");
+        //driver.get("http://www.imooc.com/user/newlogin/from_url");
+        driver.navigate().to("http://www.imooc.com");
         driver.manage().window().maximize();
     }
 
@@ -114,16 +116,29 @@ public class ActionSelenium {
         System.out.println(select.getFirstSelectedOption().getText());//用于下拉选择，获取第一个选择的值
     }
 
+    /*鼠标事件*/
+    public void mouseAction(){
+        //WebElement login = driver.findElement(By.id("js-signin-btn"));
+        WebElement element = driver.findElement(By.className("menuContent"));//找到父节点
+        List<WebElement> elementList = element.findElements(By.className("item"));//找到所有子节点
+        Actions actions = new Actions(driver);//创建一个鼠标事件对象，传入driver
+        //actions.click(login).perform();//提交
+        //actions.doubleClick(login).perform();//鼠标双击事件
+        //actions.contextClick(login).perform();//鼠标右击事件
+        actions.moveToElement(elementList.get(1)).perform();//鼠标移动到具体的位置
+        driver.findElement(By.linkText("HTML/CSS")).click();
+    }
     public static void main(String[] args) {
         ActionSelenium as = new ActionSelenium();
         as.InitDriver();
         //as.checkBox();
-        as.inputBox();
+        //as.inputBox();
         //as.radioBox();
         //as.button();
         //as.upFile();
-       // as.selectBox();
-        as.selectBox();
+        //as.selectBox();
+        //as.selectBox();
+        as.mouseAction();
     }
 }
 
