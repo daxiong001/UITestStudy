@@ -6,11 +6,14 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
+import java.util.Set;
 
 
 public class ActionSelenium {
     /*初始化浏览器驱动*/
     public WebDriver driver;
+    public String windowshandle;
+
     public void InitDriver(){
         //System.setProperty("webdriver.chrome.driver","D:\\WorkSpace\\UITestStudy\\src\\main\\resources\\chromedriver.exe");
         System.setProperty("webdriver.chrome.driver","E:\\StudyWorkspace\\src\\main\\resources\\chromedriver.exe");
@@ -18,8 +21,8 @@ public class ActionSelenium {
         //options.addArguments("headless");   //设置浏览器静默模式，后台运行浏览器
         //driver = new ChromeDriver(options);
         driver = new ChromeDriver();
-        driver.get("http://www.imooc.com/user/newlogin/from_url");
-        //driver.navigate().to("http://www.imooc.com");
+        //driver.get("http://www.imooc.com/user/newlogin/from_url");
+        driver.navigate().to("http://www.imooc.com");
         driver.manage().window().maximize();
     }
 
@@ -126,6 +129,7 @@ public class ActionSelenium {
         //actions.doubleClick(login).perform();//鼠标双击事件
         //actions.contextClick(login).perform();//鼠标右击事件
         actions.moveToElement(elementList.get(1)).perform();//鼠标移动到具体的位置
+        windowshandle = driver.getWindowHandle();//获取当前窗口
         driver.findElement(By.linkText("HTML/CSS")).click();
     }
 
@@ -137,18 +141,32 @@ public class ActionSelenium {
         driver.findElement(By.tagName("body")).sendKeys("this is test");
     }
 
+    /*窗口*/
+    public void windowsHandle(){
+       Set<String> handles = driver.getWindowHandles(); //获取所有窗口
+        for (String s:handles
+             ) {
+            if (s.equals(windowshandle)) {
+                continue;   //判断窗口是否是之前窗口，是则继续循环
+            }
+            driver.switchTo().window(s);//切换到新窗口
+        }
+        driver.findElement(By.linkText("入门")).click();
+    }
+
     public static void main(String[] args) {
         ActionSelenium as = new ActionSelenium();
         as.InitDriver();
         //as.checkBox();
-        as.inputBox();
+        //as.inputBox();
         //as.radioBox();
         //as.button();
         //as.upFile();
         //as.selectBox();
         //as.selectBox();
-        //as.mouseAction();
-        as.iframe();
+        as.mouseAction();
+        //as.iframe();
+        as.windowsHandle();
     }
 }
 
