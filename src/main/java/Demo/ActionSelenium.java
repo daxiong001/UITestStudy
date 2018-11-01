@@ -3,10 +3,14 @@ package Demo;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 
 public class ActionSelenium {
@@ -152,6 +156,24 @@ public class ActionSelenium {
             driver.switchTo().window(s);//切换到新窗口
         }
         driver.findElement(By.linkText("入门")).click();
+    }
+
+    /*等待*/
+    public void sleep(int sleeptime){
+        try {
+            Thread.sleep(sleeptime);//等待
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //显示等待
+        WebDriverWait wait = new WebDriverWait(driver,20);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("test")));
+    }
+
+    //等待
+    public void waitforElement(){
+        //隐式等待
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
     }
 
     public static void main(String[] args) {
